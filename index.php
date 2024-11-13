@@ -52,7 +52,11 @@ $maintenance_criteria_setup_result = mysqli_query($conn, $maintenance_criteria_s
                 </div>
             </div>
         </div>
-
+        <div class="text-center">
+            <h5>
+                CORE GOVERNANCE AREA 1: FINANCIAL ADMINISTRATION AND SUSTAINABILITY
+            </h5>
+        </div>
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
