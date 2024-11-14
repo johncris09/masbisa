@@ -51,6 +51,7 @@ if ($maintenance_area_description_result && mysqli_num_rows($maintenance_area_de
                             
                                 msc.keyctr AS keyctr,
                                 mam.description,
+                                mam.reqs_code,
                                 msc.movdocs_reqs documentary_requirements,
                                 mds.srcdesc data_source
 
@@ -78,6 +79,7 @@ if ($maintenance_area_description_result && mysqli_num_rows($maintenance_area_de
                                     'indicator_code' => $maintenance_area_indicators_row['indicator_code'],
                                     'indicator_description' => $maintenance_area_indicators_row['indicator_description'],
                                     'relevance_definition' => $maintenance_area_indicators_row['relevance_def'],
+                                    'reqs_code' => $maintenance_criteria_setup_row['reqs_code'],
                                     'documentary_requirements' => $maintenance_criteria_setup_row['documentary_requirements'],
                                     'description' => $maintenance_criteria_setup_row['description'],
                                     'data_source' => $maintenance_criteria_setup_row['data_source'],
@@ -154,7 +156,7 @@ if ($maintenance_area_description_result && mysqli_num_rows($maintenance_area_de
                             </td>
                             <td><?php echo $row['indicator_code']." ".  $row['indicator_description']; ?></td>
                             <td><?php echo $row['relevance_definition']; ?></td>
-                            <td><?php echo $row['description']; ?></td>
+                            <td><?php echo $row['reqs_code'] ." ". $row['description']; ?></td>
                             <td><?php echo $row['documentary_requirements']; ?></td>
                             <td><?php echo $row['data_source']; ?></td>
                         </tr>
