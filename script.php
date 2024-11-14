@@ -10,9 +10,9 @@ if (isset($_POST['add_maintenance_criteria_setup'])) {
     $minreqs_keyctr = $_POST['minreqs_keyctr'];
     $sub_minimumreqs = $_POST['sub_minimumreqs'];
     $movdocs_reqs = $_POST['movdocs_reqs'];
-    $trail = $_POST['trail']; 
+    $trail = $_POST['trail'];
     $data_source = $_POST['data_source'];
-    
+
 
 
 
@@ -103,5 +103,28 @@ if (isset($_GET['delete_id'])) {
     } else {
         echo "Error: " . $delete_maintenance_criteria_setup . "<br>" . mysqli_error($conn);
     }
+
+}
+
+
+
+if (isset($_GET['indicator_id'])) {
+    $indicator_id = $_GET['indicator_id'];
+
+
+
+    $maintenance_area_mininumreqs = "SELECT * FROM `maintenance_area_mininumreqs`   where indicator_keyctr =  $indicator_id;";
+    $maintenance_area_mininumreqs_result = mysqli_query($conn, $maintenance_area_mininumreqs);
+
+    $data = [];
+    if (mysqli_num_rows($maintenance_area_mininumreqs_result) > 0) {
+        while ($row = mysqli_fetch_assoc($maintenance_area_mininumreqs_result)) {
+
+            $data[] = $row;
+        }
+    }
+
+
+    echo json_encode(['data' => $data]);
 
 }
