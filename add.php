@@ -50,7 +50,7 @@ $maintenance_document_source_result = mysqli_query($conn, $maintenance_document_
         <form action="script.php" method="post">
             <div class="mb-3">
                 <label class="form-label">Version</label>
-                <select class="form-control" name=" version_keyctr">
+                <select class="form-control" name="version_keyctr">
                     <option value="">Select</option>
                     <?php
                     if (mysqli_num_rows($maintenance_criteria_version_result) > 0) {
@@ -63,7 +63,7 @@ $maintenance_document_source_result = mysqli_query($conn, $maintenance_document_
             </div>
             <div class="mb-3">
                 <label class="form-label">Indicator</label>
-                <select class="form-control" name=" indicator_keyctr">
+                <select class="form-control" name="indicator_keyctr">
                     <option value="">Select</option>
                     <?php
                     if (mysqli_num_rows($maintenance_area_indicators_result) > 0) {
@@ -76,15 +76,17 @@ $maintenance_document_source_result = mysqli_query($conn, $maintenance_document_
             </div>
             <div class="mb-3">
                 <label class="form-label">minreqs_keyctr</label>
-                <select class="form-control" name=" minreqs_keyctr">
-                    <option value="">Select</option>
+                <select class="form-control" name="minreqs_keyctr">
+                    <!-- <option value="">Select</option>
                     <?php
                     if (mysqli_num_rows($maintenance_area_mininumreqs_result) > 0) {
                         while ($row = mysqli_fetch_assoc($maintenance_area_mininumreqs_result)) { ?>
-                            <option value="<?php echo $row['keyctr']; ?>"><?php echo $row['reqs_code']; ?></option>
+                            <option value="<?php echo $row['keyctr']; ?>">
+                                <?php echo $row['reqs_code'] . " " . $row['description']; ?>
+                            </option>
                         <?php }
                     }
-                    ?>
+                    ?>   -->
 
                 </select>
             </div>
@@ -101,7 +103,7 @@ $maintenance_document_source_result = mysqli_query($conn, $maintenance_document_
             </div>
             <div class="mb-3">
                 <label class="form-label">Data Source</label>
-                <select class="form-control" name=" data_source">
+                <select class="form-control" name="data_source">
                     <option value="">Select</option>
                     <?php
                     if (mysqli_num_rows($maintenance_document_source_result) > 0) {
@@ -124,5 +126,54 @@ $maintenance_document_source_result = mysqli_query($conn, $maintenance_document_
         </form>
 
     </div>  
+
+    <script src=" https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+
+                    <script>
+
+                        $(document).ready(function () {
+
+
+
+                            $('select[name="indicator_keyctr"]').change(function () {
+                                $.ajax({
+                                    url: './script.php',
+                                    type: 'GET',
+                                    data: {
+                                        'indicator_id': $(this).val()
+                                    },
+                                    async: true,
+                                    dataType: 'JSON',
+                                    success: function (response) {
+                                        // Check if `response.data` exists and is an array
+                                        if (response.data && Array.isArray(response.data)) {
+                                            // Clear current options in `minreqs_keyctr`
+                                            $('select[name="minreqs_keyctr"]').empty().append('<option value="">Select</option>');
+
+                                            // Append new options from `response.data`
+                                            $.each(response.data, function (index, item) {
+                                                $('select[name="minreqs_keyctr"]').append(
+                                                    $('<option>', {
+                                                        value: item.keyctr,
+                                                        text: item.reqs_code + " " + item.description
+                                                    })
+                                                );
+                                            });
+                                        } else {
+                                            console.error("Unexpected response format:", response);
+                                        }
+                                    }
+                                });
+                            });
+
+
+                        });
+
+
+
+                    </script>
+
 </body>
+
 </html>

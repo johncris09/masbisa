@@ -94,7 +94,7 @@ $maintenance_document_source_result = mysqli_query($conn, $maintenance_document_
                     <?php
                     if (mysqli_num_rows($maintenance_area_mininumreqs_result) > 0) {
                         while ($row = mysqli_fetch_assoc($maintenance_area_mininumreqs_result)) { ?>
-                            <option <?php echo $maintenance_criteria_setup_row['minreqs_keyctr'] == $row['keyctr'] ? "selected" : "" ?> value="<?php echo $row['keyctr']; ?>"><?php echo $row['reqs_code']; ?></option>
+                            <option <?php echo $maintenance_criteria_setup_row['minreqs_keyctr'] == $row['keyctr'] ? "selected" : "" ?> value="<?php echo $row['keyctr']; ?>"><?php echo $row['reqs_code'] ." ". $row['description']; ?></option>
                         <?php }
                     }
                     ?>
