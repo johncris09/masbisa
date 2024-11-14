@@ -75,6 +75,7 @@ if ($maintenance_area_description_result && mysqli_num_rows($maintenance_area_de
 
                                 $data[$maintenance_area_description_row['category']. " " . $maintenance_area_description_row['area_description']  . ": " . $maintenance_area_description_row['description']][] = array(
                                     'keyctr' => $maintenance_criteria_setup_row['keyctr'],
+                                    'indicator_code' => $maintenance_area_indicators_row['indicator_code'],
                                     'indicator_description' => $maintenance_area_indicators_row['indicator_description'],
                                     'relevance_definition' => $maintenance_area_indicators_row['relevance_def'],
                                     'documentary_requirements' => $maintenance_criteria_setup_row['documentary_requirements'],
@@ -151,7 +152,7 @@ if ($maintenance_area_description_result && mysqli_num_rows($maintenance_area_de
                                 <a href="edit.php?edit_id=<?php echo $row['keyctr'] ?>">Edit</a> |
                                 <a href="script.php?delete_id=<?php echo $row['keyctr'] ?>">Delete</a>
                             </td>
-                            <td><?php echo $row['indicator_description']; ?></td>
+                            <td><?php echo $row['indicator_code']." ".  $row['indicator_description']; ?></td>
                             <td><?php echo $row['relevance_definition']; ?></td>
                             <td><?php echo $row['description']; ?></td>
                             <td><?php echo $row['documentary_requirements']; ?></td>
