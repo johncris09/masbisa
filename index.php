@@ -1,8 +1,21 @@
 <?php
-include 'script.php'; 
+include 'script.php';
 
-$data = []; 
-$maintenance_area_description_query = "SELECT * FROM `maintenance_area_description`";
+$data = [];
+$maintenance_area_description_query = "
+    SELECT
+        maintenance_governance.*,
+        maintenance_category.description category,
+        maintenance_area.description area_description
+    FROM
+        `maintenance_governance`
+    LEFT JOIN maintenance_category ON maintenance_governance.cat_code = maintenance_category.code
+    LEFT JOIN maintenance_area ON maintenance_governance.area_keyctr = maintenance_area.keyctr;
+    
+    
+    ;
+";
+
 $maintenance_area_description_result = mysqli_query($conn, $maintenance_area_description_query);
 
 
@@ -60,7 +73,7 @@ if ($maintenance_area_description_result && mysqli_num_rows($maintenance_area_de
                         if ($maintenance_criteria_setup_result && mysqli_num_rows($maintenance_criteria_setup_result) > 0) {
                             while ($maintenance_criteria_setup_row = mysqli_fetch_assoc($maintenance_criteria_setup_result)) {
 
-                                $data[$maintenance_area_description_row['description']][] = array(
+                                $data[$maintenance_area_description_row['category']. " " . $maintenance_area_description_row['area_description']  . ": " . $maintenance_area_description_row['description']][] = array(
                                     'keyctr' => $maintenance_criteria_setup_row['keyctr'],
                                     'indicator_description' => $maintenance_area_indicators_row['indicator_description'],
                                     'relevance_definition' => $maintenance_area_indicators_row['relevance_def'],
@@ -80,10 +93,10 @@ if ($maintenance_area_description_result && mysqli_num_rows($maintenance_area_de
 
 
             }
-        } 
+        }
 
     }
-} 
+}
 ?>
 
 
@@ -129,36 +142,36 @@ if ($maintenance_area_description_result && mysqli_num_rows($maintenance_area_de
                     </tr>
                 </thead>
                 <tbody>
-        <?php
-            foreach ($rows as $row) { 
-            
-                ?>
-                <tr>
-                    <td>
-                        <a href="edit.php?edit_id=<?php echo $row['keyctr'] ?>">Edit</a> |
-                        <a href="script.php?delete_id=<?php echo $row['keyctr'] ?>">Delete</a>
-                    </td>
-                    <td><?php echo $row['indicator_description']; ?></td>
-                    <td><?php echo $row['relevance_definition']; ?></td>
-                    <td><?php echo $row['description']; ?></td>
-                    <td><?php echo $row['documentary_requirements']; ?></td>
-                    <td><?php echo $row['data_source']; ?></td>
-                </tr>
+                    <?php
+                    foreach ($rows as $row) {
 
-                <?php
+                        ?>
+                        <tr>
+                            <td>
+                                <a href="edit.php?edit_id=<?php echo $row['keyctr'] ?>">Edit</a> |
+                                <a href="script.php?delete_id=<?php echo $row['keyctr'] ?>">Delete</a>
+                            </td>
+                            <td><?php echo $row['indicator_description']; ?></td>
+                            <td><?php echo $row['relevance_definition']; ?></td>
+                            <td><?php echo $row['description']; ?></td>
+                            <td><?php echo $row['documentary_requirements']; ?></td>
+                            <td><?php echo $row['data_source']; ?></td>
+                        </tr>
+
+                        <?php
                     } ?>
-    
+
 
 
                 </tbody>
-            </table> 
+            </table>
 
             <br />
             <br />
 
-            
+
             <?php
-                    }  
+        }
 
         ?>
 
