@@ -67,7 +67,9 @@ if ($maintenance_area_description_result && mysqli_num_rows($maintenance_area_de
                             ON
                                 msc.data_source = mds.keyctr 
                             
-                            where msc.indicator_keyctr  = '$maintenance_area_indicators_row[keyctr]'";
+                            where msc.indicator_keyctr  = '$maintenance_area_indicators_row[keyctr]'
+                            order by mam.reqs_code asc
+                            ";
                         $maintenance_criteria_setup_result = mysqli_query($conn, $maintenance_criteria_setup_query);
 
 
