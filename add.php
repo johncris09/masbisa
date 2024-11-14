@@ -68,7 +68,7 @@ $maintenance_document_source_result = mysqli_query($conn, $maintenance_document_
                     <?php
                     if (mysqli_num_rows($maintenance_area_indicators_result) > 0) {
                         while ($row = mysqli_fetch_assoc($maintenance_area_indicators_result)) { ?>
-                            <option value="<?php echo $row['keyctr']; ?>"><?php echo $row['indicator_description']; ?></option>
+                            <option value="<?php echo $row['keyctr']; ?>"><?php echo $row['indicator_code']." ". $row['indicator_description']; ?></option>
                         <?php }
                     }
                     ?>
