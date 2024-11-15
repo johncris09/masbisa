@@ -113,8 +113,9 @@ if (isset($_GET['indicator_id'])) {
 
 
 
-    $maintenance_area_mininumreqs = "SELECT * FROM `maintenance_area_mininumreqs`   where indicator_keyctr =  $indicator_id;";
-    $maintenance_area_mininumreqs_result = mysqli_query($conn, $maintenance_area_mininumreqs);
+    $maintenance_area_mininumreqs = "SELECT * FROM `maintenance_area_mininumreqs`  
+     where reqs_code =  $indicator_id;";
+     $maintenance_area_mininumreqs_result = mysqli_query($conn, $maintenance_area_mininumreqs);
 
     $data = [];
     if (mysqli_num_rows($maintenance_area_mininumreqs_result) > 0) {
