@@ -68,7 +68,7 @@ $maintenance_document_source_result = mysqli_query($conn, $maintenance_document_
                     <?php
                     if (mysqli_num_rows($maintenance_area_indicators_result) > 0) {
                         while ($row = mysqli_fetch_assoc($maintenance_area_indicators_result)) { ?>
-                            <option value="<?php echo $row['keyctr']; ?>"><?php echo $row['indicator_code']." ". $row['indicator_description']; ?></option>
+                            <option data-indicator-code="<?php echo  $row['indicator_code'];  ?>" value="<?php echo $row['keyctr']; ?>"><?php echo $row['indicator_code']." ". $row['indicator_description']; ?></option>
                         <?php }
                     }
                     ?>
@@ -137,11 +137,17 @@ $maintenance_document_source_result = mysqli_query($conn, $maintenance_document_
 
 
                             $('select[name="indicator_keyctr"]').change(function () {
+                                // Get the selected option
+                                    const selectedOption = $(this).find(':selected');
+
+                                // Access the data-indicator-code attribute
+                                const indicatorCode = selectedOption.data('indicator-code');
+ 
                                 $.ajax({
                                     url: './script.php',
                                     type: 'GET',
                                     data: {
-                                        'indicator_id': $(this).val()
+                                        'indicator_id': indicatorCode
                                     },
                                     async: true,
                                     dataType: 'JSON',
