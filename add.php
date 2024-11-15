@@ -155,7 +155,7 @@ $maintenance_document_source_result = mysqli_query($conn, $maintenance_document_
                                         // Check if `response.data` exists and is an array
                                         if (response.data && Array.isArray(response.data)) {
                                             // Clear current options in `minreqs_keyctr`
-                                            $('select[name="minreqs_keyctr"]').empty().append('<option value="">Select</option>');
+                                            // $('select[name="minreqs_keyctr"]').empty().append('<option value="">Select</option>');
 
                                             // Append new options from `response.data`
                                             $.each(response.data, function (index, item) {
